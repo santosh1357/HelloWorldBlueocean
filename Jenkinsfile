@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Upload to AWS') {
             steps{
-                withAWS(region:'us-west-1', credentials:'ci-cd-blueocean-aws'){
+                withAWS(region:'ap-south-1', credentials:'ci-cd-blueocean-aws'){
                     s3Upload(pathStyleAccessEnabled:true, payloadSigningEnabled: true, file:'index.html', bucket:'mybucket-for-testing/ci-cd')
                 }
             }
