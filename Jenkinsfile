@@ -11,8 +11,16 @@ pipeline {
                 sh '''
                     echo "Multiline shell steps works too"
                     ls -lah
+                    echo $PWD
                     '''
             }    
+        }
+        stage('Upload to AWS') {
+            steps{
+                withAWS(region:'us-west-1', credentials:'ci-cd-blueocean-aws'){
+                    s3Upload(pathStyleAccessEnabled:true, payloadSigningEnabled: true, file:'index.html', bucket:'mybucket-for-testing/ci-cd')
+                }
+            }
         }
     }
 }
